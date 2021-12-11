@@ -98,7 +98,7 @@ export default {
       items: [
         {
           icon: 'mdi-apps',
-          title: 'Welcome',
+          title: 'Game List',
           to: '/'
         },
         {
