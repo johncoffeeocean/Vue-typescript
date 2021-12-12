@@ -55,12 +55,12 @@
 
                   <v-row>
                     <v-col cols="3" md="4" class="pr-0">
-                      <v-btn v-if="orderBy.order = 'asc'" @click="orderBy.order = 'des'" color="blue" block height="48">
+                      <v-btn v-if="orderBy.order === 'desc'" @click="orderBy.order = 'asc'" color="blue" block height="48">
                         <v-icon v-if="true" aria-hidden="false">
                           mdi-arrow-down-thick
                         </v-icon>
                       </v-btn>
-                      <v-btn v-else @click="orderBy.order = 'asc'" color="blue" block height="48">
+                      <v-btn v-else @click="orderBy.order = 'desc'" color="blue" block height="48">
                         <v-icon v-if="true" aria-hidden="false">
                           mdi-arrow-up-thick
                         </v-icon>

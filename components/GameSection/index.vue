@@ -49,8 +49,8 @@ export default class GameSection extends Vue {
   }
 
   public orderBy:OrderBy = {
-    title: '',
-    order: 'asc'
+    title: 'Score',
+    order: 'desc'
   }
 
 
@@ -61,8 +61,19 @@ export default class GameSection extends Vue {
 
     get filteredGames()
     {
-      return  this.filterByName(this.filterByScore(this.gameList.games))
+      let games =  this.filterByName(this.filterByScore(this.gameList.games))
+
+      if (this.orderBy.title === 'Name')
+        return this.sortDataBykey(games, this.orderBy.order, 'name')
+      else if (this.orderBy.title === 'Score')
+        return this.sortDataBykey(games, this.orderBy.order, 'rating')
+      else if (this.orderBy.title === 'Release date')
+        return this.sortDataBykey(games, this.orderBy.order, 'first_release_date')
+      else
+        return games
     }
+
+
 
     public filterByName<T>(gameItems:[T]):[T]{
       if (this.searchParams.name)
@@ -78,6 +89,21 @@ export default class GameSection extends Vue {
         (game.rating/10 >= this.searchParams.score))
     else
       return gameItems;
+  }
+
+
+  public sortDataBykey(items, sortDir, sortKey){
+    let currentSortDir = sortDir === 'asc' ? 'desc' : 'asc';
+    let modifier = -1;
+    if(currentSortDir === 'desc') modifier = 1;
+
+    let gamesCopy:[Game] = [...items]
+    gamesCopy.sort((a,b) => {
+      if(a[sortKey] > b[sortKey]){return modifier}
+      if(a[sortKey] < b[sortKey]){return -1 * modifier}
+      return 0
+    })
+    return gamesCopy
   }
 
 
