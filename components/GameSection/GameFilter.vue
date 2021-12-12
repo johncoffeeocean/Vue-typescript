@@ -82,8 +82,7 @@
 
 
                 <v-col class="d-flex justify-end">
-                  <v-btn color="blue">Clear</v-btn>
-
+                  <v-btn @click="clearFilter()" color="blue">Clear</v-btn>
                 </v-col>
 
 
@@ -113,8 +112,8 @@
 <script lang="ts">
 
 import {Component, Vue, Prop} from 'nuxt-property-decorator'
-import {SearchParams} from "../../types/SearchParams";
-import {OrderBy} from "../../types/OrderBy";
+import {SearchParams} from "~/types/SearchParams";
+import {OrderBy} from "~/types/OrderBy";
 
 
 @Component
@@ -128,6 +127,10 @@ export default class GameFilter extends Vue {
   @Prop() readonly orderBy!:OrderBy
 
 
+  public clearFilter(){
+    this.searchParams.name = ''
+    this.searchParams.score = 0
+  }
 
 
 }
