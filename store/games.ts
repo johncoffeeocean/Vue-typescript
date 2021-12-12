@@ -1,4 +1,5 @@
 import { GetterTree, ActionTree, MutationTree } from 'vuex'
+import {Game} from "~/types/game";
 
 export const state = () => ({
   games: [] as string[],

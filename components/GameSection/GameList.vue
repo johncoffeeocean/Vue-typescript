@@ -34,10 +34,10 @@
 
             </v-col>
 
-            <v-col  cols="12"  md="1"  sm="1" xs="12" >
+            <v-col  cols="12"  md="1"  sm="1" xs="12">
 
               <div class="fill-height d-flex align-center" >
-                <v-badge color="blue" :content="Math.round(gameItem.rating/10)" ></v-badge>
+                <v-badge color="blue" class="absolute-in-mobile-badge" :content="Math.round(gameItem.rating/10)" ></v-badge>
               </div>
 
 
@@ -89,6 +89,18 @@ export default class GameList extends Vue {
 
 .games-list .card{
   margin: 20px;
+}
+
+
+@media (max-width: 600px) {
+
+  .absolute-in-mobile-badge{
+    position: absolute!important;
+
+    top: 30px!important;
+    right: 30px;
+  }
+
 }
 
 </style>
