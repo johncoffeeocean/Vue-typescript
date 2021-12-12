@@ -61,7 +61,7 @@ export default class GameSection extends Vue {
 
     get filteredGames()
     {
-      let games =  this.filterByName(this.filterByScore(this.gameList.games))
+      let games:[Game] =  this.filterByName(this.filterByScore(this.gameList.games))
 
       if (this.orderBy.title === 'Name')
         return this.sortDataBykey(games, this.orderBy.order, 'name')
@@ -92,7 +92,7 @@ export default class GameSection extends Vue {
   }
 
 
-  public sortDataBykey(items, sortDir, sortKey){
+  public sortDataBykey(items:[Game], sortDir:String, sortKey:keyof Game){
     let currentSortDir = sortDir === 'asc' ? 'desc' : 'asc';
     let modifier = -1;
     if(currentSortDir === 'desc') modifier = 1;

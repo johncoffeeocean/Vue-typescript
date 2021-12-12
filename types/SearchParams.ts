@@ -1,4 +1,4 @@
 export class SearchParams {
   name?: string;
-  score?: bigint;
+  score?: number;
 }
