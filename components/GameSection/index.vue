@@ -78,7 +78,7 @@ export default class GameSection extends Vue {
     public filterByName(gameItems:Game[]):Game[]{
       if (this.searchParams.name)
         return gameItems.filter((game:Game) =>
-          (this.searchParams.name??''.toLowerCase().split(' ').every(item => game.name??''.toLowerCase().includes(item))))
+          ((this.searchParams.name??'').toLowerCase().split(' ').every(item => (game.name??'').toLowerCase().includes(item))))
        else
         return gameItems;
     }
@@ -105,7 +105,7 @@ export default class GameSection extends Vue {
     let BObject:Object = {}
     gamesCopy.sort((a,b) => {
       AObject = a[sortKey]??{}
-      BObject = a[sortKey]??{}
+      BObject = b[sortKey]??{}
       if(AObject > BObject){return modifier}
       if(AObject < BObject){return -1 * modifier}
       return 0
