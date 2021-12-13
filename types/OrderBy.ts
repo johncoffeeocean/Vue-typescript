@@ -1,4 +1,4 @@
 export class OrderBy {
-  title?: string;
-  order?: string;
+  title: string = 'Score';
+  order: string = 'desc';
 }
