@@ -54,14 +54,14 @@ export default class GameSection extends Vue {
   }
 
 
-  get gameList():[Game] {
+  get gameList():{games:Game[], name:String} {
     return (this.$store.state).games
   }
 
 
     get filteredGames()
     {
-      let games:[Game] =  this.filterByName(this.filterByScore(this.gameList.games))
+      let games:Game[] =  this.filterByName(this.filterByScore(this.gameList.games))
 
       if (this.orderBy.title === 'Name')
         return this.sortDataBykey(games, this.orderBy.order, 'name')
@@ -75,32 +75,39 @@ export default class GameSection extends Vue {
 
 
 
-    public filterByName<T>(gameItems:[T]):[T]{
+    public filterByName(gameItems:Game[]):Game[]{
       if (this.searchParams.name)
         return gameItems.filter((game:Game) =>
-           (this.searchParams.name.toLowerCase().split(' ').every(item => game.name.toLowerCase().includes(item))))
-      else
+          ((this.searchParams.name??'').toLowerCase().split(' ').every(item => (game.name??'').toLowerCase().includes(item))))
+       else
         return gameItems;
     }
 
-  public filterByScore<T>(gameItems:[T]):[T]{
-    if (this.searchParams.score)
+  public filterByScore(gameItems:Game[]):Game[]{
+    let score = 0
+    if (this.searchParams.score){
+      score = this.searchParams.score??0
       return gameItems.filter((game:Game) =>
-        (game.rating/10 >= this.searchParams.score))
+        ((game.rating??100)/10 >= score))
+    }
     else
       return gameItems;
   }
 
 
-  public sortDataBykey(items:[Game], sortDir:String, sortKey:keyof Game){
+  public sortDataBykey(items:Game[], sortDir:String, sortKey:keyof Game){
     let currentSortDir = sortDir === 'asc' ? 'desc' : 'asc';
     let modifier = -1;
     if(currentSortDir === 'desc') modifier = 1;
 
-    let gamesCopy:[Game] = [...items]
+    let gamesCopy:Game[] = [...items]
+    let AObject:Object = {}
+    let BObject:Object = {}
     gamesCopy.sort((a,b) => {
-      if(a[sortKey] > b[sortKey]){return modifier}
-      if(a[sortKey] < b[sortKey]){return -1 * modifier}
+      AObject = a[sortKey]??{}
+      BObject = b[sortKey]??{}
+      if(AObject > BObject){return modifier}
+      if(AObject < BObject){return -1 * modifier}
       return 0
     })
     return gamesCopy
